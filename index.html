@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة البداية الرقمية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #f093fb;
+            --bg-color: #0f0f23;
+            --surface-color: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        .light-theme {
+            --bg-color: #f8faff;
+            --surface-color: rgba(0, 0, 0, 0.03);
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.2) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-section {
+            margin-bottom: 50px;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 20px 60px 20px 20px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .search-engines {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .engine-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background: var(--glass-bg);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+        }
+
+        .engine-btn:hover, .engine-btn.active {
+            background: var(--gradient-1);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .category:hover::before {
+            opacity: 1;
+        }
+
+        .category h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-icon {
+            font-size: 1.6rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 12px;
+            background: var(--surface-color);
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .link-item:hover::before {
+            left: 100%;
+        }
+
+        .link-item:hover {
+            transform: translateX(5px);
+            background: var(--gradient-1);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .link-icon {
+            margin-left: 8px;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .shortcuts {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .shortcuts h3 {
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: var(--surface-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .shortcut-item:hover {
+            background: var(--gradient-2);
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .clock {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 15px 20px;
+            backdrop-filter: blur(10px);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            z-index: 1000;
+        }
+
+        .weather {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 15px 20px;
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            z-index: 1000;
+            max-width: 200px;
+        }
+
+        .floating-add {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-2);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            z-index: 1000;
+        }
+
+        .floating-add:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .categories {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .links {
+                grid-template-columns: 1fr;
+            }
+            
+            .theme-toggle {
+                position: relative;
+                margin-bottom: 20px;
+            }
+            
+            .clock, .weather {
+                position: static;
+                margin: 10px auto;
+                display: block;
+                text-align: center;
+                max-width: 300px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            backdrop-filter: blur(15px);
+            animation: modalSlide 0.3s ease-out;
+        }
+
+        @keyframes modalSlide {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal input, .modal select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--surface-color);
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .modal button {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .modal button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="clock" id="clock"></div>
+    <div class="weather" id="weather">
+        <div>📍 موقعك الحالي</div>
+        <div id="weather-info">جاري التحميل...</div>
+    </div>
+
+    <div class="container">
+        <header class="header fade-in">
+            <button class="theme-toggle" onclick="toggleTheme()">🌙/☀️</button>
+            <h1>مرجعك الرقمي</h1>
+            <p>كل ما تحتاجه في مكان واحد - بحث سريع ووصول مباشر</p>
+        </header>
+
+        <section class="search-section fade-in">
+            <div class="search-container">
+                <input type="text" class="search-box" id="searchBox" placeholder="ابحث في الويب..." onkeypress="handleSearch(event)">
+                <button class="search-btn" onclick="performSearch()">🔍</button>
+            </div>
+            <div class="search-engines">
+                <button class="engine-btn active" data-engine="google">Google</button>
+                <button class="engine-btn" data-engine="bing">Bing</button>
+                <button class="engine-btn" data-engine="duckduckgo">DuckDuckGo</button>
+                <button class="engine-btn" data-engine="yahoo">Yahoo</button>
+                <button class="engine-btn" data-engine="yandex">Yandex</button>
+            </div>
+        </section>
+
+        <main class="categories" id="categories">
+            <div class="category fade-in">
+                <h3><span class="category-icon">🔍</span>محركات البحث</h3>
+                <div class="links">
+                    <a href="https://google.com" class="link-item" target="_blank">
+                        Google <span class="link-icon">🌐</span>
+                    </a>
+                    <a href="https://bing.com" class="link-item" target="_blank">
+                        Bing <span class="link-icon">🔍</span>
+                    </a>
+                    <a href="https://duckduckgo.com" class="link-item" target="_blank">
+                        DuckDuckGo <span class="link-icon">🦆</span>
+                    </a>
+                    <a href="https://yandex.com" class="link-item" target="_blank">
+                        Yandex <span class="link-icon">🅨</span>
+                    </a>
+                    <a href="https://scholar.google.com" class="link-item" target="_blank">
+                        Google Scholar <span class="link-icon">🎓</span>
+                    </a>
+                    <a href="https://images.google.com" class="link-item" target="_blank">
+                        البحث بالصور <span class="link-icon">🖼️</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="category fade-in">
+                <h3><span class="category-icon">☁️</span>التخزين السحابي</h3>
+                <div class="links">
+                    <a href="https://drive.google.com" class="link-item" target="_blank">
+                        Google Drive <span class="link-icon">📁</span>
+                    </a>
+                    <a href="https://onedrive.live.com" class="link-item" target="_blank">
+                        OneDrive <span class="link-icon">☁️</span>
+                    </a>
+                    <a href="https://dropbox.com" class="link-item" target="_blank">
+                        Dropbox <span class="link-icon">📦</span>
+                    </a>
+                    <a href="https://mega.nz" class="link-item" target="_blank">
+                        MEGA <span class="link-icon">🔒</span>
+                    </a>
+                    <a href="https://box.com" class="link-item" target="_blank">
+                        Box <span class="link-icon">📋</span>
+                    </a>
+                    <a href="https://icloud.com" class="link-item" target="_blank">
+                        iCloud <span class="link-icon">🍎</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="category fade-in">
+                <h3><span class="category-icon">📚</span>الكتب والمكتبات</h3>
+                <div class="links">
+                    <a href="https://archive.org" class="link-item" target="_blank">
+                        Internet Archive <span class="link-icon">🏛️</span>
+                    </a>
+                    <a href="https://libgen.is" class="link-item" target="_blank">
+                        Library Genesis <span class="link-icon">📖</span>
+                    </a>
+                    <a href="https://z-lib.org" class="link-item" target="_blank">
+                        Z-Library <span class="link-icon">📚</span>
+                    </a>
+                    <a href="https://goodreads.com" class="link-item" target="_blank">
+                        Goodreads <span class="link-icon">⭐</span>
+                    </a>
+                    <a href="https://books.google.com" class="link-item" target="_blank">
+                        Google Books <span class="link-icon">📙</span>
+                    </a>
+                    <a href="https://kindle.amazon.com" class="link-item" target="_blank">
+                        Kindle Cloud <span class="link-icon">📱</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="category fade-in">
+                <h3><span class="category-icon">🎬</span>الترفيه والوسائط</h3>
+                <div class="links">
+                    <a href="https://youtube.com" class="link-item" target="_blank">
+                        YouTube <span class="link-icon">▶️</span>
+                    </a>
+                    <a href="https://netflix.com" class="link-item" target="_blank">
+                        Netflix <span class="link-icon">🎥</span>
+                    </a>
+                    <a href="https://spotify.com" class="link-item" target="_blank">
+                        Spotify <span class="link-icon">🎵</span>
+                    </a>
+                    <a href="https://twitch.tv" class="link-item" target="_blank">
+                        Twitch <span class="link-icon">🎮</span>
+                    </a>
+                    <a href="https://soundcloud.com" class="link-item" target="_blank">
+                        SoundCloud <span class="link-icon">🎧</span>
+                    </a>
+                    <a href="https://vimeo.com" class="link-item" target="_blank">
+                        Vimeo <span class="link-icon">🎞️</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="category fade-in">
+                <h3><span class="category-icon">💼</span>العمل والإنتاجية</h3>
+                <div class="links">
+                    <a href="https://gmail.com" class="link-item" target="_blank">
+                        Gmail <span class="link-icon">📧</span>
+                    </a>
+                    <a href="https://outlook.com" class="link-item" target="_blank">
+                        Outlook <span class="link-icon">📮</span>
+                    </a>
+                    <a href="https://docs.google.com" class="link-item" target="_blank">
+                        Google Docs <span class="link-icon">📝</span>
+                    </a>
+                    <a href="https://office.com" class="link-item" target="_blank">
+                        Office 365 <span class="link-icon">🏢</span>
+                    </a>
+                    <a href="https://notion.so" class="link-item" target="_blank">
+                        Notion <span class="link-icon">📔</span>
+                    </a>
+                    <a href="https://trello.com" class="link-item" target="_blank">
+                        Trello <span class="link-icon">📋</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="category fade-in">
+                <h3><span class="category-icon">🛠️</span>أدوات التطوير</h3>
+                <div class="links">
+                    <a href="https://github.com" class="link-item" target="_blank">
+                        GitHub <span class="link-icon">🐙</span>
+                    </a>
+                    <a href="https://stackoverflow.com" class="link-item" target="_blank">
+                        Stack Overflow <span class="link-icon">❓</span>
+                    </a>
+                    <a href="https://codepen.io" class="link-item" target="_blank">
+                        CodePen <span class="link-icon">✏️</span>
+                    </a>
+                    <a href="https://jsfiddle.net" class="link-item" target="_blank">
+                        JSFiddle <span class="link-icon">🔧</span>
+                    </a>
+                    <a href="https://replit.com" class="link-item" target="_blank">
+                        Replit <span class="link-icon">💻</span>
+                    </a>
+                    <a href="https://vercel.com" class="link-item" target="_blank">
+                        Vercel <span class="link-icon">⚡</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <div class="shortcuts fade-in">
+            <h3>اختصارات لوحة المفاتيح</h3>
+            <div class="shortcut-grid">
+                <div class="shortcut-item">
+                    <span>البحث السريع</span>
+                    <kbd>Ctrl + K</kbd>
+                </div>
+                <div class="shortcut-item">
+                    <span>تغيير المظهر</span>
+                    <kbd>Ctrl + Shift + T</kbd>
+                </div>
+                <div class="shortcut-item">
+                    <span>إضافة رابط</span>
+                    <kbd>Ctrl + N</kbd>
+                </div>
+                <div class="shortcut-item">
+                    <span>البحث بالصور</span>
+                    <kbd>Ctrl + I</kbd>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="floating-add" onclick="showAddLinkModal()" title="إضافة رابط جديد">+</button>
+
+    <!-- Modal for adding new links -->
+    <div id="addLinkModal" class="modal">
+        <div class="modal-content">
+            <h3>إضافة رابط جديد</h3>
+            <input type="text" id="linkName" placeholder="اسم الرابط">
+            <input type="url" id="linkUrl" placeholder="رابط الموقع">
+            <select id="linkCategory">
+                <option value="">اختر الفئة</option>
+                <option value="search">محركات البحث</option>
+                <option value="storage">التخزين السحابي</option>
+                <option value="books">الكتب والمكتبات</option>
+                <option value="entertainment">الترفيه والوسائط</option>
+                <option value="work">العمل والإنتاجية</option>
+                <option value="dev">أدوات التطوير</option>
+            </select>
+            <input type="text" id="linkIcon" placeholder="أيقونة (emoji)" maxlength="2">
+            <div>
+                <button onclick="addCustomLink()">إضافة</button>
+                <button onclick="closeModal()">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize
+        let currentEngine = 'google';
+        let customLinks = JSON.parse(localStorage.getItem('customLinks') || '{}');
+
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+        }
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-theme');
+        }
+
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('ar-SA', {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            const date = now.toLocaleDateString('ar-SA', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('clock').innerHTML = `${time}<br><small>${date}</small>`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Weather (placeholder - you can integrate with a real weather API)
+        function updateWeather() {
+            const weather = {
+                temp: Math.floor(Math.random() * 15) + 20,
+                condition: ['☀️ مشمس', '⛅ غائم جزئياً', '🌥️ غائم', '🌧️ ممطر'][Math.floor(Math.random() * 4)]
+            };
+            document.getElementById('weather-info').innerHTML = `${weather.temp}°م<br>${weather.condition}`;
+        }
+        updateWeather();
+        setInterval(updateWeather, 300000); // Update every 5 minutes
+
+        // Search functionality
+        const searchEngines = {
+            google: 'https://www.google.com/search?q=',
+            bing: 'https://www.bing.com/search?q=',
+            duckduckgo: 'https://duckduckgo.com/?q=',
+            yahoo: 'https://search.yahoo.com/search?p=',
+            yandex: 'https://yandex.com/search/?text='
+        };
+
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        }
+
+        function performSearch() {
+            const query = document.getElementById('searchBox').value.trim();
+            if (query) {
+                window.open(searchEngines[currentEngine] + encodeURIComponent(query), '_blank');
+                document.getElementById('searchBox').value = '';
+            }
+        }
+
+        // Search engine selection
+        document.querySelectorAll('.engine-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelector('.engine-btn.active').classList.remove('active');
+                btn.classList.add('active');
+                currentEngine = btn.dataset.engine;
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey) {
+                switch(e.key) {
+                    case 'k':
+                        e.preventDefault();
+                        document.getElementById('searchBox').focus();
+                        break;
+                    case 'n':
+                        e.preventDefault();
+                        showAddLinkModal();
+                        break;
+                    case 'i':
+                        e.preventDefault();
+                        window.open('https://images.google.com/', '_blank');
+                        break;
+                }
+                if (e.shiftKey && e.key === 'T') {
+                    e.preventDefault();
+                    toggleTheme();
+                }
+            }
+        });
+
+        // Modal functions
+        function showAddLinkModal() {
+            document.getElementById('addLinkModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('addLinkModal').style.display = 'none';
+            clearModalFields();
+        }
+
+        function clearModalFields() {
+            document.getElementById('linkName').value = '';
+            document.getElementById('linkUrl').value = '';
+            document.getElementById('linkCategory').value = '';
+            document.getElementById('linkIcon').value = '';
+        }
+
+        function addCustomLink() {
+            const name = document.getElementById('linkName').value.trim();
+            const url = document.getElementById('linkUrl').value.trim();
+            const category = document.getElementById('linkCategory').value;
+            const icon = document.getElementById('linkIcon').value.trim() || '🔗';
+
+            if (name && url && category) {
+                if (!customLinks[category]) {
+                    customLinks[category] = [];
+                }
+                
+                customLinks[category].push({
+                    name: name,
+                    url: url,
+                    icon: icon
+                });
+
+                localStorage.setItem('customLinks', JSON.stringify(customLinks));
+                addLinkToDOM(name, url, icon, category);
+                closeModal();
+            } else {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+            }
+        }
+
+        function addLinkToDOM(name, url, icon, category) {
+            const categoryMap = {
+                'search': 0,
+                'storage': 1,
+                'books': 2,
+                'entertainment': 3,
+                'work': 4,
+                'dev': 5
+            };
+
+            const categoryIndex = categoryMap[category];
+            if (categoryIndex !== undefined) {
+                const categoryElement = document.querySelectorAll('.category')[categoryIndex];
+                const linksContainer = categoryElement.querySelector('.links');
+                
+                const linkElement = document.createElement('a');
+                linkElement.href = url;
+                linkElement.className = 'link-item';
+                linkElement.target = '_blank';
+                linkElement.innerHTML = `${name} <span class="link-icon">${icon}</span>`;
+                
+                // Add delete functionality for custom links
+                linkElement.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    if (confirm('هل تريد حذف هذا الرابط؟')) {
+                        removeCustomLink(name, category);
+                        linkElement.remove();
+                    }
+                });
+                
+                linksContainer.appendChild(linkElement);
+            }
+        }
+
+        function removeCustomLink(name, category) {
+            if (customLinks[category]) {
+                customLinks[category] = customLinks[category].filter(link => link.name !== name);
+                if (customLinks[category].length === 0) {
+                    delete customLinks[category];
+                }
+                localStorage.setItem('customLinks', JSON.stringify(customLinks));
+            }
+        }
+
+        // Load custom links on page load
+        function loadCustomLinks() {
+            Object.keys(customLinks).forEach(category => {
+                customLinks[category].forEach(link => {
+                    addLinkToDOM(link.name, link.url, link.icon, category);
+                });
+            });
+        }
+
+        // Quick access with number keys
+        document.addEventListener('keydown', (e) => {
+            if (e.altKey && e.key >= '1' && e.key <= '6') {
+                e.preventDefault();
+                const categoryIndex = parseInt(e.key) - 1;
+                const categories = document.querySelectorAll('.category');
+                if (categories[categoryIndex]) {
+                    categories[categoryIndex].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+
+        // Focus search box on page load
+        window.addEventListener('load', () => {
+            document.getElementById('searchBox').focus();
+            loadCustomLinks();
+        });
+
+        // Close modal on outside click
+        document.getElementById('addLinkModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('addLinkModal')) {
+                closeModal();
+            }
+        });
+
+        // Animate categories on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = Math.random() * 0.3 + 's';
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.category').forEach(category => {
+            observer.observe(category);
+        });
+
+        // Dynamic greeting based on time
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            let greeting = '';
+            
+            if (hour < 6) greeting = '🌙 ليلة سعيدة';
+            else if (hour < 12) greeting = '🌅 صباح الخير';
+            else if (hour < 17) greeting = '☀️ مساء الخير';
+            else if (hour < 21) greeting = '🌆 مساء الخير';
+            else greeting = '🌙 ليلة سعيدة';
+            
+            document.querySelector('.header p').textContent = `${greeting} - كل ما تحتاجه في مكان واحد`;
+        }
+
+        updateGreeting();
+        setInterval(updateGreeting, 3600000); // Update every hour
+
+        // Add smooth scrolling to all internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add ripple effect to buttons
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement('span');
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+            circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+            circle.classList.add('ripple');
+
+            const ripple = button.getElementsByClassName('ripple')[0];
+            if (ripple) {
+                ripple.remove();
+            }
+
+            button.appendChild(circle);
+        }
+
+        document.querySelectorAll('.engine-btn, .search-btn, .floating-add').forEach(btn => {
+            btn.addEventListener('click', createRipple);
+        });
+
+        // Add CSS for ripple effect
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                transform: scale(0);
+                animation: ripple 600ms linear;
+                background-color: rgba(255, 255, 255, 0.6);
+            }
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(rippleStyle);
+
+        console.log('🚀 مرجعك الرقمي جاهز للاستخدام!');
+        console.log('💡 نصائح:');
+        console.log('- استخدم Ctrl+K للبحث السريع');
+        console.log('- انقر بالزر الأيمن على الروابط المخصصة لحذفها');
+        console.log('- استخدم Alt+1-6 للانتقال بين الفئات');
+    </script>
+</body>
+</html>
